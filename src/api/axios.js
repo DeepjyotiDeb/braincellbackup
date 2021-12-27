@@ -6,7 +6,7 @@ const service = axios.create({
 
   // service.defaults.baseURL = 'http://localhost:8000/';
 //   service.defaults.baseURL ='https://zwc74bqvu4.execute-api.ap-south-1.amazonaws.com/dev1/'
-service.defaults.baseURL = 'https://gnurn84yn2.execute-api.ap-south-1.amazonaws.com/dev2'
+service.defaults.baseURL = 'https://jhtgtqphw6.execute-api.ap-south-1.amazonaws.com/dev3'
   service.defaults.headers.post['Content-Type'] = 'application/json';
   
   // request interceptor
