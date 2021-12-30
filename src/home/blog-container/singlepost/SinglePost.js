@@ -36,9 +36,10 @@ export default function SinglePost() {
     const SuperButton = () => {
         if(post.user_id == localStorage.getItem('user_id')){return(<>
             <Button variant = "contained" 
-                    color ="success"><Link to={`/update-post/${post.id}`} style = {{textDecoration: "none", color: "inherit"}}>edit post {post.id} </Link></Button>
+                    color ="success"><Link to={`/update-post/${post.id}`} 
+                    style = {{textDecoration: "none", color: "inherit"}}>edit post </Link></Button>
                 <Button variant = "contained"
-                    color = "error" onClick = {handleSubmit}>delete post {post.id}</Button></>)
+                    color = "error" onClick = {handleSubmit}>delete post</Button></>)
         }else{
             return(console.log("empty"))
         }
@@ -46,7 +47,7 @@ export default function SinglePost() {
     return (
         <Container maxWidth="lg">
             <Card>
-                <CardHeader title={`Currently Viewing ${post.title}`}></CardHeader>
+                <CardHeader title={`${post.title}`}></CardHeader>
                 <CardContent>
                     <Typography variant="h5">{post.summary}</Typography>
                     <Typography variant="body">{post.body}</Typography>
