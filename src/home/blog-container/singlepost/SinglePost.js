@@ -6,18 +6,13 @@ import {    Link,
   } from "react-router-dom";
 
 export default function SinglePost() {
-    const navigate = useNavigate
+    const navigate = useNavigate()
     const { id } = useParams(); // Reads the URL on the URL Bar and gets whatever is after ":"
     const [post, setPost] = useState({});
 
     const handleSubmit= () => {axios.delete(`/delete-post/${id}`)
     .then((response) => console.log(response))
-    .then(() => navigate('/create-post'))
-        // // console.log("click")
-        // <Link to="/update-post"><UpdatePost/></Link>
-        // <Link to = {`/update-post/${post.id}`}></Link>
-        // navigate(`/update-post/${post.id}`)
-        // console.log("sending")
+    .then(('/'))
     }
 
     // mount
@@ -54,13 +49,7 @@ export default function SinglePost() {
                     <div><Typography variant="h10" m={4}>Created on {post.created_on} this is {post.id}</Typography></div>
                 </CardContent>
             </Card>
-                {console.log("the ids are",post.user_id, localStorage.getItem('user_id'))}
                 {SuperButton()}
-                {/* {(post.user_id===localStorage.getItem('user_id')?<>
-                <Button variant = "contained" 
-                    color ="success"><Link to={`/update-post/${post.id}`} style = {{textDecoration: "none", color: "inherit"}}>edit post {post.id} </Link></Button>
-                <Button variant = "contained"
-                    color = "error" onClick = {handleSubmit}>delete post {post.id}</Button></>:(<></>))} */}
         </Container>
     )
 }
