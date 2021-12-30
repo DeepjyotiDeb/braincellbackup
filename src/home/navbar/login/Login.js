@@ -60,7 +60,7 @@ export default function Login(props) {
   }
 
   const handleSubmit = () => {
-    console.log('test values are:', username, password);
+//     console.log('test values are:', username, password);
     axios.post('login', (`grant_type=&username=${username}&password=${password}&scope=&client_id=&client_secret=`),
      {
       headers: {
