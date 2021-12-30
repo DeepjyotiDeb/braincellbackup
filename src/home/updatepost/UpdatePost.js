@@ -1,21 +1,18 @@
 import { Container, Box, Typography, Card, CardHeader, Button, TextField } from '@mui/material'
 import React, {useEffect, useState} from 'react'
 import axios from "../../api/axios";
-import { useNavigate, useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export default function UpdatePost() {
-    const navigate = useNavigate
+    const navigate = useNavigate()
     const { id } = useParams(); // Reads the URL on the URL Bar and gets whatever is after ":"
     const [post, setPost] = useState({});
 
     const handleSubmit = () => {
-        console.log('edited values', values);
-        axios.put(`/update-post/${post.id}`, { 'title': values.title, 'summary': values.summary, 'body': values.body})
-        .then(function(){
-            console.log("test")
-        })
-        // .then(() => navigate('/'))
-        // .then(console.log("this"))
+        axios.put(`/update-post/${post.id}`, { 'title': values.title, 'summary': values.summary, 'body': values.body},
+        { headers:
+            {"Authorization" : `Bearer ${localStorage.getItem('access_token')}`}})        
+        .then(()=> navigate('/'))        
       }
     // mount
     useEffect(() => {
