@@ -10,9 +10,12 @@ export default function SinglePost() {
     const { id } = useParams(); // Reads the URL on the URL Bar and gets whatever is after ":"
     const [post, setPost] = useState({});
 
-    const handleSubmit= () => {axios.delete(`/delete-post/${id}`)
-    .then((response) => console.log(response))
-    .then(('/'))
+    const handleSubmit= () => {
+        axios.delete(`/delete-post/${id}`, 
+        { headers:
+        {"Authorization": `Bearer ${localStorage.getItem('access_token')}`}})
+             .then((response) => console.log(response))
+             .then(() => navigate('/'))
     }
 
     // mount
