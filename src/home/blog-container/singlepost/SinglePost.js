@@ -1,6 +1,6 @@
 import { Container, Typography, Card, CardHeader, CardContent, Button } from '@mui/material'
 import React, {useEffect, useState} from 'react'
-import axios from "../../../api/axios";
+import axios from "../../../api/axios"
 import { useNavigate, useParams } from 'react-router-dom';
 import {    Link,
   } from "react-router-dom";
@@ -52,7 +52,13 @@ export default function SinglePost() {
                     <div><Typography variant="h10" m={4}>Created on {post.created_on} this is {post.id}</Typography></div>
                 </CardContent>
             </Card>
+                {/* {console.log("the ids are",post.user_id, localStorage.getItem('user_id'))} */}
                 {SuperButton()}
+                {/* {(post.user_id===localStorage.getItem('user_id')?<>
+                <Button variant = "contained" 
+                    color ="success"><Link to={`/update-post/${post.id}`} style = {{textDecoration: "none", color: "inherit"}}>edit post {post.id} </Link></Button>
+                <Button variant = "contained"
+                    color = "error" onClick = {handleSubmit}>delete post {post.id}</Button></>:(<></>))} */}
         </Container>
     )
 }
