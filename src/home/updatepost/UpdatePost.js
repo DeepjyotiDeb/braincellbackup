@@ -1,22 +1,21 @@
 import { Container, Box, Typography, Card, CardHeader, Button, TextField } from '@mui/material'
 import React, {useEffect, useState} from 'react'
 import axios from "../../api/axios";
-import { useNavigate, useParams } from 'react-router-dom';
+// import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate,useParams } from "react-router-dom"
 
 export default function UpdatePost() {
-    const navigate = useNavigate()
+    let navigate = useNavigate()
     const { id } = useParams(); // Reads the URL on the URL Bar and gets whatever is after ":"
     const [post, setPost] = useState({});
+    const [values, setValues] = useState({
+        title: "",
+        summary: "",
+        body: ""
+      })
 
-    const handleSubmit = () => {
-        axios.put(`/update-post/${post.id}`, { 'title': values.title, 'summary': values.summary, 'body': values.body},
-        { headers:
-            {"Authorization" : `Bearer ${localStorage.getItem('access_token')}`}})        
-        .then(()=> navigate('/'))        
-      }
-    // mount
     useEffect(() => {
-        axios.get(`/posts/${id}`)
+        axios.get(`/get-post/${id}`)
         .then(function (response) {
             setPost(response.data.post)
         })
@@ -25,14 +24,20 @@ export default function UpdatePost() {
         });
     }, []);
 
-    const [values, setValues] = useState({
-        title: `${post.title}`,
-        summary: "",
-        body: ""
-      })
     const handleChange = (event) => {
         setValues({...values, [event.target.name]: event.target.value})
       }
+
+    const handleSubmit = () => {
+        console.log('edited values', values);
+        axios.put(`/update-post/${post.id}`, { 'title': values.title, 'summary': values.summary, 'body': values.body},
+        { headers:
+            {"Authorization" : `Bearer ${localStorage.getItem('access_token')}`}})        
+        .then(()=> navigate('/'))        
+        // .then(console.log("this"))
+      }
+    // mount
+    
     
     return (
         <Container maxWidth="lg">
@@ -87,13 +92,3 @@ export default function UpdatePost() {
         // null
     )
 }
-
-// import React from 'react'
-
-// export default function UpdatePost() {
-//     return (
-//         <div>
-//             ths
-//         </div>
-//     )
-// }
