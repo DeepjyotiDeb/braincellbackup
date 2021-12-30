@@ -25,7 +25,7 @@ export default function MakePost() {
   }
 
   const handleSubmit = () => {
-    console.log('here are values', values);
+//     console.log('here are values', values);
     axios.post(`create-posts/${uid}`, { 'title': values.title, 'summary': values.summary, 'body': values.body},
     { headers:
        {"Authorization" : `Bearer ${localStorage.getItem('access_token')}`}})
