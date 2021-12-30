@@ -26,7 +26,7 @@ export default function SignUp(props) {
     }
     const handleSubmit = () => {
       console.log(values)
-      // axios.post('user/',{'name':values.username, 'email':values.email, 'password':values.password2})
+      axios.post('user',{'name':values.username, 'email':values.email, 'password':values.password2})
       // .then(res => console.log(res))
     }
 
