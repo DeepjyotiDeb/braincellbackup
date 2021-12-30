@@ -30,7 +30,7 @@ export default function SignUp(props) {
 
     return (
         <div>
-            <Dialog open={openSignUp} onClose={handleClose} onSubmit={handleSubmit} component = "form">
+            <Dialog open={openSignUp} onClose={handleClose} component = "form" onSubmit={handleSubmit}>
         <DialogTitle>Sign Up</DialogTitle>
         <DialogContent>          
           <TextField
