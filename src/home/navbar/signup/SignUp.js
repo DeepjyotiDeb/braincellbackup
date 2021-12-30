@@ -4,9 +4,7 @@ import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { Link } from 'react-router-dom';
 import axios from "../../../api/axios"
 
 export default function SignUp(props) {
@@ -27,12 +25,12 @@ export default function SignUp(props) {
     const handleSubmit = () => {
       console.log(values)
       axios.post('user',{'name':values.username, 'email':values.email, 'password':values.password2})
-      // .then(res => console.log(res))
+      .then(res => console.log(res))
     }
 
     return (
         <div>
-            <Dialog open={openSignUp} onClose={handleClose} component="form" onSubmit={handleSubmit}>
+            <Dialog open={openSignUp} onClose={handleClose} onSubmit={handleSubmit} component = "form">
         <DialogTitle>Sign Up</DialogTitle>
         <DialogContent>          
           <TextField
