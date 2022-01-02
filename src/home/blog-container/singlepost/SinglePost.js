@@ -2,8 +2,7 @@ import { Container, Typography, Card, CardHeader, CardContent, Button } from '@m
 import React, {useEffect, useState} from 'react'
 import axios from "../../../api/axios"
 import { useNavigate, useParams } from 'react-router-dom';
-import {    Link,
-  } from "react-router-dom";
+import { Link, } from "react-router-dom";
 
 export default function SinglePost() {
     const navigate = useNavigate()
@@ -12,7 +11,8 @@ export default function SinglePost() {
 
     const handleSubmit= () => {
         axios.delete(`/delete-post/${id}`, 
-        { headers:
+        {   json: true,
+            headers:
         {"Authorization": `Bearer ${localStorage.getItem('access_token')}`}})
              .then((response) => console.log(response))
              .then(() => navigate('/'))
@@ -39,26 +39,21 @@ export default function SinglePost() {
                 <Button variant = "contained"
                     color = "error" onClick = {handleSubmit}>delete post</Button></>)
         }else{
-            return(console.log("empty"))
+            // return(console.log("empty"))
         }
     }
+    
     return (
         <Container maxWidth="lg">
             <Card>
                 <CardHeader title={`${post.title}`}></CardHeader>
                 <CardContent>
-                    <Typography variant="h5">{post.summary}</Typography>
-                    <Typography variant="body">{post.body}</Typography>
-                    <div><Typography variant="h10" m={4}>Created on {post.created_on} this is {post.id}</Typography></div>
+                    <Typography variant="h5">{post.summary}</Typography>                   
+                    <div dangerouslySetInnerHTML={{ __html: post.body}} />
+                    <div><Typography variant="h10" m={4}>Created on {post.created_on}</Typography></div>
                 </CardContent>
             </Card>
-                {/* {console.log("the ids are",post.user_id, localStorage.getItem('user_id'))} */}
                 {SuperButton()}
-                {/* {(post.user_id===localStorage.getItem('user_id')?<>
-                <Button variant = "contained" 
-                    color ="success"><Link to={`/update-post/${post.id}`} style = {{textDecoration: "none", color: "inherit"}}>edit post {post.id} </Link></Button>
-                <Button variant = "contained"
-                    color = "error" onClick = {handleSubmit}>delete post {post.id}</Button></>:(<></>))} */}
         </Container>
     )
 }
