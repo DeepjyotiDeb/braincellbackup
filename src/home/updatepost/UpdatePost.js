@@ -1,18 +1,20 @@
 import { Container, Box, Typography, Card, CardHeader, Button, TextField } from '@mui/material'
 import React, {useEffect, useState} from 'react'
 import axios from "../../api/axios";
-// import { useNavigate, useParams } from 'react-router-dom';
 import { useNavigate,useParams } from "react-router-dom"
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import "../makepost/styles.css"
 
 export default function UpdatePost() {
-    let navigate = useNavigate()
+    let navigate = useNavigate();
     const { id } = useParams(); // Reads the URL on the URL Bar and gets whatever is after ":"
     const [post, setPost] = useState({});
     const [values, setValues] = useState({
         title: "",
         summary: "",
-        body: ""
       })
+    const [body, setBody] = useState("");
 
     useEffect(() => {
         axios.get(`/get-post/${id}`)
@@ -28,23 +30,22 @@ export default function UpdatePost() {
         setValues({...values, [event.target.name]: event.target.value})
       }
 
-    const handleSubmit = () => {
-        console.log('edited values', values);
-        axios.put(`/update-post/${post.id}`, { 'title': values.title, 'summary': values.summary, 'body': values.body},
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        console.log('edited values', values, body);
+        axios.put(`/update-post/${post.id}`, { 'title': values.title, 'summary': values.summary, 'body': body},
         { headers:
             {"Authorization" : `Bearer ${localStorage.getItem('access_token')}`}})        
-        .then(()=> navigate('/'))        
-        // .then(console.log("this"))
+        .then(()=> navigate('/'))    
       }
-    // mount
-    
+    // mount    
     
     return (
         <Container maxWidth="lg">
             <Card>
                 <CardHeader title={`Currently Viewing ${post.title}`}></CardHeader>
                     <Typography variant="h5">{post.summary}</Typography>
-                    <Typography variant="body">{post.body}</Typography>
+                    <div dangerouslySetInnerHTML={{ __html: post.body}} />
                     <div><Typography variant="h10" m={4}>Created on {post.created_on}</Typography></div>
             </Card>
             <Box component="form" noValidate autoComplete="off">
@@ -71,8 +72,8 @@ export default function UpdatePost() {
           value={values.summary}
           sx = {{float: 'left', m:1, width:'60ch' }}
         /></div>
-        <div>
-    <TextField
+        <div className="editor">
+    {/* <TextField
           onChange={handleChange}
           id="outlined-textarea3"
           label="Body"
@@ -82,13 +83,21 @@ export default function UpdatePost() {
           value={values.body}
           size = "large"
           sx = {{float: 'left', m: 1, width:'100ch', height: '90%' }}
-        />
+        /> */}
+        <div className="cke">
+        <CKEditor 
+        editor={ ClassicEditor }        
+        onChange={ ( event, editor ) => {
+            const data = editor.getData();           
+            setBody(data)          
+          } }        
+    /></div>
     </div><div>  
             <Button variant = "contained" 
                     color ="success"
                     // onClick={handleClick}>Update Post</Button>
+                    sx = {{float: 'left', m: 1, width:'50ch', height: '90%' }}
                     onClick={handleSubmit}>Update Post</Button></div> </div></Box>                   
         </Container>
-        // null
     )
 }
