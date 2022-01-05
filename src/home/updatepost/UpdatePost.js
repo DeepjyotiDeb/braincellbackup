@@ -42,11 +42,11 @@ export default function UpdatePost() {
     
     return (
         <Container maxWidth="lg">
-            <Card>
+            <Card><Typography align = "left" m={2}>
                 <CardHeader title={`Currently Viewing ${post.title}`}></CardHeader>
                     <Typography variant="h5">{post.summary}</Typography>
                     <div dangerouslySetInnerHTML={{ __html: post.body}} />
-                    <div><Typography variant="h10" m={4}>Created on {post.created_on}</Typography></div>
+                    <Typography variant="h10" m={4}>Created on {post.created_on}</Typography></Typography>
             </Card>
             <Box component="form" noValidate autoComplete="off">
             <div>
