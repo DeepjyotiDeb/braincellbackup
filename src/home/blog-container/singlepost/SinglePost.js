@@ -47,10 +47,10 @@ export default function SinglePost() {
         <Container maxWidth="lg">
             <Card>
                 <CardHeader title={`${post.title}`}></CardHeader>
-                <CardContent>
+                <CardContent><Typography align = "left">
                     <Typography variant="h5">{post.summary}</Typography>                   
                     <div dangerouslySetInnerHTML={{ __html: post.body}} />
-                    <div><Typography variant="h10" m={4}>Created on {post.created_on}</Typography></div>
+                    <Typography variant="h10" m={4}>Created on {post.created_on}</Typography></Typography>
                 </CardContent>
             </Card>
                 {SuperButton()}
