@@ -96,7 +96,7 @@ export default function Navbar() {
                 SignUp
               </Button></>
             ):(<Button color = "inherit" variant="outlined" sx={{position: 'absolute', right: '5px'}}
-            onClick ={() => {localStorage.removeItem('access_token', 'user_id');navigate('/')}}> 
+            onClick ={() => {localStorage.removeItem('user_id');localStorage.removeItem('access_token');navigate('/')}}> 
               Logout
             </Button>))}            
         </Toolbar>
