@@ -53,7 +53,7 @@ export default function SinglePost() {
                     <Typography variant="h10" m={4}>Created on {post.created_on}</Typography></Typography>
                 </CardContent>
             </Card>
-                {SuperButton()}
+                {SuperButton}
         </Container>
     )
 }
