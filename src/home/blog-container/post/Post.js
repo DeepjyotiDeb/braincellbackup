@@ -1,6 +1,7 @@
 import React from 'react'
 import { Card, CardHeader, CardContent, Typography, Box,  } from '@mui/material'
 import { Link } from "react-router-dom";
+import moment from 'moment'
 export default function Post(props) {   
 
     const postData = props.postData;
@@ -13,7 +14,7 @@ export default function Post(props) {
                 </CardHeader>
                 <CardContent>
                     <Typography variant="h5">{postData.summary}</Typography>
-                    <div><Typography variant="h10" m={4}>Created on {postData.created_on}</Typography></div>
+                    <div><Typography variant="caption" m={4}>Created on {moment(postData.created_on).format('MMMM Do YYYY, h:mm a')}</Typography></div>
                 </CardContent>
             </Card></Link>
         </Box>
