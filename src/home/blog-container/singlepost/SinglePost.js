@@ -4,6 +4,7 @@ import axios from "../../../api/axios"
 import { useNavigate, useParams } from 'react-router-dom';
 import { Link, } from "react-router-dom";
 import ReactLoading from "react-loading"
+import moment from 'moment'
 
 export default function SinglePost() {
     const navigate = useNavigate()
@@ -69,9 +70,11 @@ export default function SinglePost() {
             <Card>
                 <CardHeader title={`${post.title}`}></CardHeader>
                 <CardContent><Typography align = "left">
-                    <Typography variant="h5">{post.summary}</Typography>                   
+                    <Typography variant="h5">{post.summary}, {post.date}</Typography>                   
                     <div dangerouslySetInnerHTML={{ __html: post.body}} />
-                    <div><Typography variant="h10" m={4}>Created on {post.created_on}</Typography></div></Typography>
+                    <div><Typography variant="caption" m={4}>
+                        Created on {moment(post.created_on).format('MMMM Do YYYY, h:mm a')}
+                        </Typography></div></Typography>
                 </CardContent>
             </Card>
                 {SuperButton()}
