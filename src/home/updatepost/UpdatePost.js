@@ -10,21 +10,26 @@ export default function UpdatePost() {
     let navigate = useNavigate();
     const { id } = useParams(); // Reads the URL on the URL Bar and gets whatever is after ":"
     const [post, setPost] = useState({});
-    const [values, setValues] = useState({
-        title: "",
-        summary: "",
-      })
-    const [body, setBody] = useState("");
+    
 
     useEffect(() => {
         axios.get(`/get-post/${id}`)
         .then(function (response) {
             setPost(response.data.post)
+            // console.log(post)
         })
         .catch(function (error) {
             console.log(error);
         });
-    }, []);
+    }, [id]);
+    
+    const [values, setValues] = useState({
+      title: "",
+      summary: "",
+      // body: ""
+    })
+    const [body, setBody] = useState("");
+
 
     const handleChange = (event) => {
         setValues({...values, [event.target.name]: event.target.value})
@@ -32,7 +37,7 @@ export default function UpdatePost() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log('edited values', values, body);
+        // console.log('edited values', values, body);
         axios.put(`/update-post/${post.id}`, { 'title': values.title, 'summary': values.summary, 'body': body},
         { headers:
             {"Authorization" : `Bearer ${localStorage.getItem('access_token')}`}})        
@@ -43,7 +48,7 @@ export default function UpdatePost() {
     return (
         <Container maxWidth="lg">
             <Card><Typography align = "left" m={2}>
-                <CardHeader title={`Currently Viewing ${post.title}`}></CardHeader>
+                <CardHeader title={`Currently Viewing:- ${post.title}`}></CardHeader>
                     <Typography variant="h5">{post.summary}</Typography>
                     <div dangerouslySetInnerHTML={{ __html: post.body}} />
                     <Typography variant="h10" m={4}>Created on {post.created_on}</Typography></Typography>
@@ -52,16 +57,17 @@ export default function UpdatePost() {
             <div>
       <div>    
     <TextField
-          onChange={handleChange}
-          id="outlined-textarea"
-          label="title"
-          name="title"
-          placeholder={post.title}
-          multiline
-          value={values.title}
-          sx = {{float: 'left',m:1}}
-        /></div>
-        <div>
+      // defaultValue={post.title}
+      // inputRef={(input) => post.title = input }
+      onChange={handleChange}
+      id="outlined-textarea"
+      label="title"
+      name="title"
+      multiline
+      value={values.title}
+      sx = {{float: 'left',m:1}}
+      /></div>
+    <div>
     <TextField
           id="outlined-textarea2"
           onChange={handleChange}
@@ -73,23 +79,13 @@ export default function UpdatePost() {
           sx = {{float: 'left', m:1, width:'60ch' }}
         /></div>
         <div className="editor">
-    {/* <TextField
-          onChange={handleChange}
-          id="outlined-textarea3"
-          label="Body"
-          name="body"
-          placeholder={post.body}
-          multiline
-          value={values.body}
-          size = "large"
-          sx = {{float: 'left', m: 1, width:'100ch', height: '90%' }}
-        /> */}
         <div className="cke">
         <CKEditor 
         editor={ ClassicEditor }        
         onChange={ ( event, editor ) => {
             const data = editor.getData();           
-            setBody(data)          
+            setBody(data)
+            // setValues(values.body.data)          
           } }        
     /></div>
     </div><div>  
@@ -99,5 +95,6 @@ export default function UpdatePost() {
                     sx = {{float: 'left', m: 1, width:'50ch', height: '90%' }}
                     onClick={handleSubmit}>Update Post</Button></div> </div></Box>                   
         </Container>
+        // null
     )
 }
