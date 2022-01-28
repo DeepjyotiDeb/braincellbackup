@@ -34,7 +34,7 @@ export default function SinglePost() {
             // handle error
             console.log(error);
         });
-        },500)    
+        },10)    
     }, []);
 
     const SuperButton = () => {
