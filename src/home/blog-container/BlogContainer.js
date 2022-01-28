@@ -22,7 +22,7 @@ export default function BlogContainer() {
             // handle error
             console.log(error);            
         });
-        }, 500)        
+        }, 10)        
     }, []);
 
     const postComponents = posts.map(item => {
